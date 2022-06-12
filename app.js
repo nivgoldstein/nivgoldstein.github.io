@@ -35,7 +35,7 @@
                     key='A',
                     JSONmessage={
                         type: 'errorMessage',
-                        message: 'Test message 3',
+                        message: 'Test message 4',
                         action: [
                             {
                                 actionText: "A1",
