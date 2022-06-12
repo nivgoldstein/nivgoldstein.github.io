@@ -34,14 +34,16 @@
                 mailboxItem.notificationMessages.addAsync(
                     key='A',
                     JSONmessage={
-                        type: 'errorMessage ',
+                        type: 'errorMessage',
                         message: 'Test message 3',
-                        action: [{
-                            actionText: "A1",
-                            actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
-                            commandId: "msgComposeOpenPaneButton",
-                            contextData: JSON.stringify({a: "aValue", b: "bValue"}),
-                        }],
+                        action: [
+                            {
+                                actionText: "A1",
+                                actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
+                                commandId: "msgComposeOpenPaneButton",
+                                contextData: JSON.stringify({a: "aValue", b: "bValue"}),
+                            },
+                        ],
                     },
                     callback=(result) => {
                         console.log("In")
