@@ -27,30 +27,33 @@
         mailboxItem.subject.getAsync(
             { asyncContext: event },
             function (asyncResult) {
-                addCCOnSend(asyncResult.asyncContext);
+                // addCCOnSend(asyncResult.asyncContext);
                 //console.log(asyncResult.value);
                 // Match string.
-                var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
-                // Add [Checked]: to subject line.
-                subject = '[Checked]: ' + asyncResult.value;
+                mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Test message' });
+                asyncResult.asyncContext.completed({ allowEvent: false });
 
-                // Check if a string is blank, null or undefined.
-                // If yes, block send and display information bar to notify sender to add a subject.
-                if (asyncResult.value === null || (/^\s*$/).test(asyncResult.value)) {
-                    mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Please enter a subject for this email.' });
-                    asyncResult.asyncContext.completed({ allowEvent: false });
-                }
-                else {
-                    // If can't find a [Checked]: string match in subject, call subjectOnSendChange function.
-                    if (!checkSubject) {
-                        subjectOnSendChange(subject, asyncResult.asyncContext);
-                        //console.log(checkSubject);
-                    }
-                    else {
-                        // Allow send.
-                        asyncResult.asyncContext.completed({ allowEvent: true });
-                    }
-                }
+                // var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
+                // // Add [Checked]: to subject line.
+                // subject = '[Checked]: ' + asyncResult.value;
+                //
+                // // Check if a string is blank, null or undefined.
+                // // If yes, block send and display information bar to notify sender to add a subject.
+                // if (asyncResult.value === null || (/^\s*$/).test(asyncResult.value)) {
+                //     mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Please enter a subject for this email.' });
+                //     asyncResult.asyncContext.completed({ allowEvent: false });
+                // }
+                // else {
+                //     // If can't find a [Checked]: string match in subject, call subjectOnSendChange function.
+                //     if (!checkSubject) {
+                //         subjectOnSendChange(subject, asyncResult.asyncContext);
+                //         //console.log(checkSubject);
+                //     }
+                //     else {
+                //         // Allow send.
+                //         asyncResult.asyncContext.completed({ allowEvent: true });
+                //     }
+                // }
 
             }
           )
