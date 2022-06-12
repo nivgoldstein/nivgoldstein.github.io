@@ -37,12 +37,12 @@
                         type: 'errorMessage',
                         message: 'Test message 3',
                         action: [
-                            // {
-                            //     actionText: "A1",
-                            //     actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
-                            //     commandId: "msgComposeOpenPaneButton",
-                            //     contextData: JSON.stringify({a: "aValue", b: "bValue"}),
-                            // },
+                            {
+                                actionText: "A1",
+                                actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
+                                commandId: "msgComposeOpenPaneButton",
+                                contextData: JSON.stringify({a: "aValue", b: "bValue"}),
+                            },
                         ],
                     },
                     callback=(result) => {
