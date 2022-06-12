@@ -30,7 +30,16 @@
                 // addCCOnSend(asyncResult.asyncContext);
                 //console.log(asyncResult.value);
                 // Match string.
-                mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Test message' });
+                mailboxItem.notificationMessages.addAsync('A', {
+                    type: 'ProgressIndicator ',
+                    message: 'Test message',
+                    action: [{
+                        actionText: "A1",
+                        actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
+                        commandId: "msgComposeOpenPaneButton",
+                        contextData: JSON.stringify({a: "aValue", b: "bValue"})
+                    }],
+                });
                 asyncResult.asyncContext.completed({ allowEvent: false });
 
                 // var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
