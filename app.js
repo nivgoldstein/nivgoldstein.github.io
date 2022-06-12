@@ -32,7 +32,7 @@
                 // Match string.
                 mailboxItem.notificationMessages.addAsync('A', {
                     type: 'ProgressIndicator ',
-                    message: 'Test message',
+                    message: 'Test message 2',
                     action: [{
                         actionText: "A1",
                         actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
