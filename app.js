@@ -30,7 +30,7 @@
                 // addCCOnSend(asyncResult.asyncContext);
                 //console.log(asyncResult.value);
                 // Match string.
-                console.log("V2")
+                console.log("V3")
 
 
 
@@ -40,7 +40,7 @@
 
                 }, 5000)
                 console.log("After Timeout")
-                asyncResult.asyncContext.completed({ allowEvent: false });
+                // asyncResult.asyncContext.completed({ allowEvent: false });
 
                 // mailboxItem.notificationMessages.addAsync(
                 //     key='A',
