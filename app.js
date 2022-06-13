@@ -30,16 +30,27 @@
                 // addCCOnSend(asyncResult.asyncContext);
                 //console.log(asyncResult.value);
                 // Match string.
-                console.log("V3")
+                console.log("V4")
 
+                fetch("https://httpbin.org/delay/5").then(
+                    r => {
+                        return r.json()
+                    }
+                ).then(
+                    r => {
+                        console.log("In fetch delay")
+                        asyncResult.asyncContext.completed({ allowEvent: false });
+                    }
+                )
+                console.log("After fetch delay")
 
+                // setTimeout(() => {
+                //     console.log("In Timeout")
+                //     asyncResult.asyncContext.completed({ allowEvent: true });
+                //
+                // }, 5000)
+                // console.log("After Timeout")
 
-                setTimeout(() => {
-                    console.log("In Timeout")
-                    asyncResult.asyncContext.completed({ allowEvent: true });
-
-                }, 5000)
-                console.log("After Timeout")
                 // asyncResult.asyncContext.completed({ allowEvent: false });
 
                 // mailboxItem.notificationMessages.addAsync(
