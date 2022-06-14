@@ -21,39 +21,39 @@ function validateSubjectAndCC(event) {
   shouldChangeSubjectOnSend(event);
 }
 
-function openDialog() {
-  const dialog = document.createElement('dialog')
-  const card = document.getElementById('ReadingPaneContainerId')
-  const approveBtn = document.createElement('button')
-  const cancleBtn = document.createElement('button')
-  approveBtn.innerText = 'Approve'
-  cancleBtn.innerText = 'Cancel'
+// function openDialog() {
+//   const dialog = document.createElement('dialog')
+//   const card = document.getElementById('ReadingPaneContainerId')
+//   const approveBtn = document.createElement('button')
+//   const cancleBtn = document.createElement('button')
+//   approveBtn.innerText = 'Approve'
+//   cancleBtn.innerText = 'Cancel'
 
-  approveBtn.addEventListener('click', () => {
-    // callback here for approve
-    alert('click')
-  })
+//   approveBtn.addEventListener('click', () => {
+//     // callback here for approve
+//     alert('click')
+//   })
 
-  dialog.appendChild(approveBtn)
-  dialog.appendChild(cancleBtn)
-  dialog.style.width = '250px'
-  dialog.style.height = '80px'
-  dialog.style.backgroundColor = 'red'
-  dialog.open = true
-  dialog.style.top = '50%'
-  dialog.style.transform = 'translateY(-50%)'
-  dialog.style.display = 'flex'
-  dialog.style.justifyContent = 'space-around'
-  dialog.style.alignItems = 'center'
-  document.body.appendChild(dialog)
-  console.log('open dialog 3', document.body)
+//   dialog.appendChild(approveBtn)
+//   dialog.appendChild(cancleBtn)
+//   dialog.style.width = '250px'
+//   dialog.style.height = '80px'
+//   dialog.style.backgroundColor = 'red'
+//   dialog.open = true
+//   dialog.style.top = '50%'
+//   dialog.style.transform = 'translateY(-50%)'
+//   dialog.style.display = 'flex'
+//   dialog.style.justifyContent = 'space-around'
+//   dialog.style.alignItems = 'center'
+//   document.body.appendChild(dialog)
+//   console.log('open dialog 3', document.body)
 
-}
+// }
 
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
-  openDialog()
+  const answer = prompt('are you sure?')
   mailboxItem.subject.getAsync(
     { asyncContext: event },
     function (asyncResult) {
