@@ -28,6 +28,7 @@ function openDialog() {
   const cancleBtn = document.createElement('button')
   approveBtn.innerText = 'Approve'
   cancleBtn.innerText = 'Cancel'
+  console.log('open dialog', document.body)
 
   approveBtn.addEventListener('click', () => {
     // callback here for approve
