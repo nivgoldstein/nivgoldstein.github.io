@@ -23,7 +23,7 @@ function validateSubjectAndCC(event) {
 
 function openDialog() {
   const dialog = document.createElement('dialog')
-  const card = document.createElement('div')
+  const card = document.getElementById('ReadingPaneContainerId')
   const approveBtn = document.createElement('button')
   const cancleBtn = document.createElement('button')
   approveBtn.innerText = 'Approve'
@@ -46,7 +46,7 @@ function openDialog() {
   dialog.style.display = 'flex'
   dialog.style.justifyContent = 'space-around'
   dialog.style.alignItems = 'center'
-  document.body.appendChild(dialog)
+  card.appendChild(dialog)
 }
 
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
