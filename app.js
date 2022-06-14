@@ -28,7 +28,6 @@ function openDialog() {
   const cancleBtn = document.createElement('button')
   approveBtn.innerText = 'Approve'
   cancleBtn.innerText = 'Cancel'
-  console.log('open dialog', document.body)
 
   approveBtn.addEventListener('click', () => {
     // callback here for approve
@@ -47,6 +46,8 @@ function openDialog() {
   dialog.style.justifyContent = 'space-around'
   dialog.style.alignItems = 'center'
   card.appendChild(dialog)
+  console.log('open dialog 2', card)
+
 }
 
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
