@@ -45,8 +45,8 @@ function openDialog() {
   dialog.style.display = 'flex'
   dialog.style.justifyContent = 'space-around'
   dialog.style.alignItems = 'center'
-  card.appendChild(dialog)
-  console.log('open dialog 2', card)
+  document.body.appendChild(dialog)
+  console.log('open dialog 3', document.body)
 
 }
 
