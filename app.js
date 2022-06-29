@@ -2,6 +2,30 @@
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
+var dialog;
+
+function showDialog() {
+  var dialogUrl = 'https://' + location.host + '/dialog.html'
+  Office.context.ui.displayDialogAsync(dialogUrl, { height: 30, width: 20 },
+    function (asyncResult) {
+      dialog = asyncResult.value;
+      dialog.addEventHandler(Office.EventType.DialogMessageReceived, processMessage);
+    }
+  );
+}
+
+function processMessage(arg) {
+  var messageFromDialog = JSON.parse(arg.message);
+  console.log(messageFromDialog.name);
+  dialog.close();
+
+}
+
+function closeButtonClick() {
+  var messageObject = { messageType: "dialogClosed" };
+  var jsonMessage = JSON.stringify(messageObject);
+  Office.context.ui.messageParent(jsonMessage);
+}
 
 var mailboxItem;
 
@@ -53,22 +77,7 @@ function validateSubjectAndCC(event) {
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
-  console.log(MessageBox)
-  MessageBox.Show("Do you like icecream?", "Questionaire", MessageBoxButtons.YesNo,
-    MessageBoxIcons.Question, false, null, function (buttonFirst) {
-      var iceCream = (buttonFirst == "Yes" ? "do" : "dont");
-      MessageBox.UpdateMessage("Do you like Jelly Beans?", function (buttonSecond) {
-        var jellyBeans = (buttonSecond == "Yes" ? "do" : "dont");
-        MessageBox.UpdateMessage("Do you like Kit Kat bars?", function (buttonThird) {
-          var kitkat = (buttonThird == "Yes" ? "do" : "dont");
-          MessageBox.CloseDialogAsync(function () {
-            Alert.Show("You said you " + iceCream + " like ice cream, you " +
-              jellyBeans + " like jelly beans, and you " +
-              kitkat + " like kit kat bars.");
-          });
-        });
-      });
-    }, true);
+  showDialog()
   // mailboxItem.subject.getAsync(
   //   { asyncContext: event },
   //   function (asyncResult) {
