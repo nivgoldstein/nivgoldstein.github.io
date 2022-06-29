@@ -1,7 +1,3 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
- * See LICENSE in the project root for license information.
- */
 var dialog;
 
 function allowToSend(asyncResult) {
@@ -22,8 +18,33 @@ function showDialog(approveFn, cancelFn) {
     function (asyncResult) {
       dialog = asyncResult.value;
       dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => processMessage(arg, approveFn, cancelFn));
+      dialog.addEventHandler(Office.EventType.DialogEventReceived, () => eventHandler(arg, cancelFn));
+
     }
   );
+}
+
+function eventHandler(arg, cancelFn) {
+  // In addition to general system errors, there are 2 specific errors 
+  // and one event that you can handle individually.
+  // switch (arg.error) {
+  //   case 12002:
+  //     showNotification("Cannot load URL, no such page or bad URL syntax.");
+  //     break;
+  //   case 12003:
+  //     showNotification("HTTPS is required.");
+  //     break;
+  //   case 12006:
+  //     // The dialog was closed, typically because the user the pressed X button.
+  //     showNotification("Dialog closed by user");
+  //     break;
+  //   default:
+  //     showNotification("Undefined error in dialog window");
+  //     break;
+  // }
+  if (arg.error) {
+    cancelFn()
+  }
 }
 
 function processMessage(arg, approveFn, cancelFn) {
