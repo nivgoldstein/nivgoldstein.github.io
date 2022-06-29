@@ -14,7 +14,10 @@
 
   <script>
     function pressedYes() {
-      Office.context.ui.messageParent({ result: 'yes' })
+      const message = {
+        result: 'yes'
+      }
+      Office.context.ui.messageParent(JSON.stringify(message))
     }
     const yesButton = document.getElementById("yesBtn")
     yesButton.addEventListener('click', pressedYes)
