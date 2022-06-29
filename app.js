@@ -2,6 +2,7 @@
  * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT license.
  * See LICENSE in the project root for license information.
  */
+require('officejs.dialogs')
 
 var mailboxItem;
 
@@ -53,7 +54,25 @@ function validateSubjectAndCC(event) {
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
-  const answer = prompt('are you sure?')
+  console.log(event)
+  MessageBox.Show("Do you like icecream?", "Questionaire", MessageBoxButtons.YesNo,
+    MessageBoxIcons.Question, false, null, function (buttonFirst) {
+      /** @type {string} */
+      var iceCream = (buttonFirst == "Yes" ? "do" : "dont");
+      MessageBox.UpdateMessage("Do you like Jelly Beans?", function (buttonSecond) {
+        /** @type {string} */
+        var jellyBeans = (buttonSecond == "Yes" ? "do" : "dont");
+        MessageBox.UpdateMessage("Do you like Kit Kat bars?", function (buttonThird) {
+          /** type {string} */
+          var kitkat = (buttonThird == "Yes" ? "do" : "dont");
+          MessageBox.CloseDialogAsync(function () {
+            Alert.Show("You said you " + iceCream + " like ice cream, you " +
+              jellyBeans + " like jelly beans, and you " +
+              kitkat + " like kit kat bars.");
+          });
+        });
+      });
+    }, true);
   mailboxItem.subject.getAsync(
     { asyncContext: event },
     function (asyncResult) {
