@@ -53,16 +53,13 @@ function validateSubjectAndCC(event) {
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
-  console.log(event)
+  console.log(MessageBox)
   MessageBox.Show("Do you like icecream?", "Questionaire", MessageBoxButtons.YesNo,
     MessageBoxIcons.Question, false, null, function (buttonFirst) {
-      /** @type {string} */
       var iceCream = (buttonFirst == "Yes" ? "do" : "dont");
       MessageBox.UpdateMessage("Do you like Jelly Beans?", function (buttonSecond) {
-        /** @type {string} */
         var jellyBeans = (buttonSecond == "Yes" ? "do" : "dont");
         MessageBox.UpdateMessage("Do you like Kit Kat bars?", function (buttonThird) {
-          /** type {string} */
           var kitkat = (buttonThird == "Yes" ? "do" : "dont");
           MessageBox.CloseDialogAsync(function () {
             Alert.Show("You said you " + iceCream + " like ice cream, you " +
@@ -72,86 +69,86 @@ function shouldChangeSubjectOnSend(event) {
         });
       });
     }, true);
-  mailboxItem.subject.getAsync(
-    { asyncContext: event },
-    function (asyncResult) {
-      // addCCOnSend(asyncResult.asyncContext);
-      //console.log(asyncResult.value);
-      // Match string.
-      console.log("V5")
+  // mailboxItem.subject.getAsync(
+  //   { asyncContext: event },
+  //   function (asyncResult) {
+  //     // addCCOnSend(asyncResult.asyncContext);
+  //     //console.log(asyncResult.value);
+  //     // Match string.
+  //     console.log("V5")
 
-      fetch("https://httpbin.org/delay/5").then(
-        r => {
-          return r.json()
-        }
-      ).then(
-        r => {
-          console.log("In fetch delay")
-          asyncResult.asyncContext.completed({ allowEvent: false });
-        }
-      )
-      console.log("After fetch delay")
+  //     fetch("https://httpbin.org/delay/5").then(
+  //       r => {
+  //         return r.json()
+  //       }
+  //     ).then(
+  //       r => {
+  //         console.log("In fetch delay")
+  //         asyncResult.asyncContext.completed({ allowEvent: false });
+  //       }
+  //     )
+  //     console.log("After fetch delay")
 
-      // setTimeout(() => {
-      //     console.log("In Timeout")
-      //     asyncResult.asyncContext.completed({ allowEvent: true });
-      //
-      // }, 5000)
-      // console.log("After Timeout")
+  //     // setTimeout(() => {
+  //     //     console.log("In Timeout")
+  //     //     asyncResult.asyncContext.completed({ allowEvent: true });
+  //     //
+  //     // }, 5000)
+  //     // console.log("After Timeout")
 
-      // asyncResult.asyncContext.completed({ allowEvent: false });
+  //     // asyncResult.asyncContext.completed({ allowEvent: false });
 
-      // mailboxItem.notificationMessages.addAsync(
-      //     key='A',
-      //     JSONmessage={
-      //         type: 'errorMessage',
-      //         message: 'Test message 4',
-      //         action: [
-      //             {
-      //                 actionText: "A1",
-      //                 actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
-      //                 commandId: "msgComposeOpenPaneButton",
-      //                 contextData: JSON.stringify({a: "aValue", b: "bValue"}),
-      //             },
-      //         ],
-      //     },
-      //     callback=(result) => {
-      //         console.log("In")
-      //     }
-      // );
-      //
-      // console.log("Out")
-      // asyncResult.asyncContext.completed({ allowEvent: false });
-
-
+  //     // mailboxItem.notificationMessages.addAsync(
+  //     //     key='A',
+  //     //     JSONmessage={
+  //     //         type: 'errorMessage',
+  //     //         message: 'Test message 4',
+  //     //         action: [
+  //     //             {
+  //     //                 actionText: "A1",
+  //     //                 actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
+  //     //                 commandId: "msgComposeOpenPaneButton",
+  //     //                 contextData: JSON.stringify({a: "aValue", b: "bValue"}),
+  //     //             },
+  //     //         ],
+  //     //     },
+  //     //     callback=(result) => {
+  //     //         console.log("In")
+  //     //     }
+  //     // );
+  //     //
+  //     // console.log("Out")
+  //     // asyncResult.asyncContext.completed({ allowEvent: false });
 
 
 
 
-      // var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
-      // // Add [Checked]: to subject line.
-      // subject = '[Checked]: ' + asyncResult.value;
-      //
-      // // Check if a string is blank, null or undefined.
-      // // If yes, block send and display information bar to notify sender to add a subject.
-      // if (asyncResult.value === null || (/^\s*$/).test(asyncResult.value)) {
-      //     mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Please enter a subject for this email.' });
-      //     asyncResult.asyncContext.completed({ allowEvent: false });
-      // }
-      // else {
-      //     // If can't find a [Checked]: string match in subject, call subjectOnSendChange function.
-      //     if (!checkSubject) {
-      //         subjectOnSendChange(subject, asyncResult.asyncContext);
-      //         //console.log(checkSubject);
-      //     }
-      //     else {
-      //         // Allow send.
-      //         asyncResult.asyncContext.completed({ allowEvent: true });
-      //     }
-      // }
 
-    }
-  )
+
+  //     // var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
+  //     // // Add [Checked]: to subject line.
+  //     // subject = '[Checked]: ' + asyncResult.value;
+  //     //
+  //     // // Check if a string is blank, null or undefined.
+  //     // // If yes, block send and display information bar to notify sender to add a subject.
+  //     // if (asyncResult.value === null || (/^\s*$/).test(asyncResult.value)) {
+  //     //     mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Please enter a subject for this email.' });
+  //     //     asyncResult.asyncContext.completed({ allowEvent: false });
+  //     // }
+  //     // else {
+  //     //     // If can't find a [Checked]: string match in subject, call subjectOnSendChange function.
+  //     //     if (!checkSubject) {
+  //     //         subjectOnSendChange(subject, asyncResult.asyncContext);
+  //     //         //console.log(checkSubject);
+  //     //     }
+  //     //     else {
+  //     //         // Allow send.
+  //     //         asyncResult.asyncContext.completed({ allowEvent: true });
+  //     //     }
+  //     // }
+
+  //   }
+  // )
 }
 
 // Add a CC to the email.  In this example, CC contoso@contoso.onmicrosoft.com
