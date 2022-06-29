@@ -16,15 +16,14 @@ function showDialog() {
 
 function processMessage(arg) {
   var messageFromDialog = JSON.parse(arg.message);
-  console.log(messageFromDialog);
+  if (messageFromDialog.result === 'yes') {
+    // do something
+  } else if (messageFromDialog.result === 'no') {
+    // do something
+  } else {
+    // closed by something else
+  }
   dialog.close();
-
-}
-
-function closeButtonClick() {
-  var messageObject = { messageType: "dialogClosed" };
-  var jsonMessage = JSON.stringify(messageObject);
-  Office.context.ui.messageParent(jsonMessage);
 }
 
 var mailboxItem;
@@ -44,35 +43,6 @@ function validateBody(event) {
 function validateSubjectAndCC(event) {
   shouldChangeSubjectOnSend(event);
 }
-
-// function openDialog() {
-//   const dialog = document.createElement('dialog')
-//   const card = document.getElementById('ReadingPaneContainerId')
-//   const approveBtn = document.createElement('button')
-//   const cancleBtn = document.createElement('button')
-//   approveBtn.innerText = 'Approve'
-//   cancleBtn.innerText = 'Cancel'
-
-//   approveBtn.addEventListener('click', () => {
-//     // callback here for approve
-//     alert('click')
-//   })
-
-//   dialog.appendChild(approveBtn)
-//   dialog.appendChild(cancleBtn)
-//   dialog.style.width = '250px'
-//   dialog.style.height = '80px'
-//   dialog.style.backgroundColor = 'red'
-//   dialog.open = true
-//   dialog.style.top = '50%'
-//   dialog.style.transform = 'translateY(-50%)'
-//   dialog.style.display = 'flex'
-//   dialog.style.justifyContent = 'space-around'
-//   dialog.style.alignItems = 'center'
-//   document.body.appendChild(dialog)
-//   console.log('open dialog 3', document.body)
-
-// }
 
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
