@@ -25,6 +25,7 @@ function showDialog(approveFn, cancelFn) {
 }
 
 function eventHandler(arg, cancelFn) {
+  console.log('close', arg)
   // In addition to general system errors, there are 2 specific errors 
   // and one event that you can handle individually.
   // switch (arg.error) {
