@@ -18,7 +18,7 @@ function showDialog(approveFn, cancelFn) {
     function (asyncResult) {
       dialog = asyncResult.value;
       dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => processMessage(arg, approveFn, cancelFn));
-      dialog.addEventHandler(Office.EventType.DialogEventReceived, () => eventHandler(arg, cancelFn));
+      dialog.addEventHandler(Office.EventType.DialogEventReceived, (arg) => eventHandler(arg, cancelFn));
 
     }
   );
