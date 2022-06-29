@@ -8,14 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<script>
-  function pressedYes() {
-    Office.context.ui.messageParent({ result: 'yes' })
-  }
-</script>
 
 <body>
-  <button>YES</button>
+  <button id="yesBtn">YES</button>
+
+  <script>
+    function pressedYes() {
+      Office.context.ui.messageParent({ result: 'yes' })
+    }
+    const yesButton = document.getElementById("yesBtn")
+    yesButton.addEventListener('click', pressedYes)
+  </script>
+
 </body>
 
 </html>
