@@ -16,7 +16,7 @@ function showDialog() {
 
 function processMessage(arg) {
   var messageFromDialog = JSON.parse(arg.message);
-  console.log(messageFromDialog.name);
+  console.log(messageFromDialog);
   dialog.close();
 
 }
