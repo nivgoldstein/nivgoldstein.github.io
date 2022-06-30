@@ -12,8 +12,15 @@ function notAllowedToSend(asyncResult) {
   }
 }
 
-function showDialog(approveFn, cancelFn) {
+function setRecipients(recipients) {
+  localStorage.setItem('recipients', JSON.stringify(recipients))
+}
+
+function showDialog(approveFn, cancelFn, recipients) {
   var dialogUrl = 'https://' + location.host + '/dialog.html'
+  if (recipients) {
+    setRecipients(recipients)
+  }
   Office.context.ui.displayDialogAsync(dialogUrl, { height: 30, width: 20 },
     function (asyncResult) {
       dialog = asyncResult.value;

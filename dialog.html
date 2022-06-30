@@ -158,6 +158,9 @@
     const editButton = document.getElementById("editBtn")
     editButton.addEventListener('click', pressedNo)
 
+    const recipients = JSON.parse(localStorage.getItem('recipients'))
+    console.log('dialog', recipients)
+
     window.onbeforeunload(ev => {
       sendMessage('closed')
     })
