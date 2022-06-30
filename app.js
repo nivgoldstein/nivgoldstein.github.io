@@ -163,7 +163,7 @@ function shouldChangeSubjectOnSend(event) {
           r => {
             // subject, body, from, to
             console.log(r, "In fetch delay")
-            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult))
+            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), to)
             // asyncResult.asyncContext.completed({ allowEvent: false });
           }
         )

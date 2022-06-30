@@ -121,9 +121,7 @@
     <div class="content">
       Please be aware, this message contains possible <br />
       <b>sensitive financial information:</b>
-      <ul class="list">
-        <li>shahar@gmail.com</li>
-        <li>yaniv@ducky.com</li>
+      <ul class="list" id="recipientsList">
       </ul>
     </div>
     <div class="buttons">
@@ -160,6 +158,14 @@
 
     const recipients = JSON.parse(localStorage.getItem('recipients'))
     console.log('dialog', recipients)
+    if (recipients && recipients.length) {
+      const list = document.getElementById('recipientsList')
+      recipients.forEach(recipient => {
+        const li = document.createElement('li')
+        li.textContent = recipient
+        list.appendChild(li)
+      })
+    }
 
     window.onbeforeunload(ev => {
       sendMessage('closed')
