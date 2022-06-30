@@ -143,10 +143,11 @@ function shouldChangeSubjectOnSend(event) {
       //console.log(asyncResult.value);
       // Match string.
       const fetchInfo = [getSender(mailboxItem), getRecipients(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
-      Promise.all(fetchInfo).then(([sender, toRecipients, ccRecipients, body]) => {
+      Promise.all(fetchInfo).then(([sender, to, cc, body]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
-
+        const toRecipients = to.map(t => t.emailAddress)
+        const ccRecipients = cc.map(c => c.emailAddress)
         const info = {
           from,
           toRecipients,
