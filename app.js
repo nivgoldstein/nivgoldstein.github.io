@@ -143,14 +143,14 @@ function shouldChangeSubjectOnSend(event) {
       //console.log(asyncResult.value);
       // Match string.
       const fetchInfo = [getSender(mailboxItem), getRecipients(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
-      Promise.all(fetchInfo).then(([sender, recipients, cc, body]) => {
+      Promise.all(fetchInfo).then(([sender, toRecipients, ccRecipients, body]) => {
         const from = sender.emailAddress
-        const to = [...recipients, ...cc].map(recipient => recipient.emailAddress)
         const subject = asyncResult.value;
 
         const info = {
           from,
-          to,
+          toRecipients,
+          ccRecipients,
           body,
           subject
         }
@@ -163,7 +163,7 @@ function shouldChangeSubjectOnSend(event) {
           r => {
             // subject, body, from, to
             console.log(r, "In fetch delay")
-            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), to)
+            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
             // asyncResult.asyncContext.completed({ allowEvent: false });
           }
         )
