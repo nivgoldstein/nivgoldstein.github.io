@@ -135,11 +135,19 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
-      const subject = asyncResult.value;
-      const fetchInfo = [getRecipients(mailboxItem), getSender(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
-      Promise.all(fetchInfo).then((info) => {
+      const fetchInfo = [getSender(mailboxItem), getRecipients(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
+      Promise.all(fetchInfo).then((sender, recipients, cc, body) => {
+        const from = sender.emailAddress
+        const to = [...recipients, ...cc].map(recipient => recipient.emailAddress)
+        const subject = asyncResult.value;
+
+        const info = {
+          from,
+          to,
+          body,
+          subject
+        }
         console.log(info)
-        debugger
         fetch("https://httpbin.org/delay/5").then(
           r => {
             return r.json()
