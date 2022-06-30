@@ -171,6 +171,8 @@ function shouldChangeSubjectOnSend(event) {
           }
         ).then(
           r => {
+            mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Found vulnerabilities in recipients. Please remove them.' });
+
             const x = 6;
             if (x > 0) {
               showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
