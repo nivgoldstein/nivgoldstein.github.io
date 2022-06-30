@@ -81,6 +81,36 @@ function validateSubjectAndCC(event) {
   shouldChangeSubjectOnSend(event);
 }
 
+function getRecipients(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.to.getAsync(callback);
+  })
+}
+
+function getBody(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.body.getAsync(callback);
+  })
+}
+
+function getSender(mailboxItem) {
+  return mailboxItem.sender.emailAddress
+}
+
+function getSubject(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.to.getAsync(callback);
+  })
+}
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
@@ -90,20 +120,30 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
-      console.log("V5")
+      console.log("subject", asyncResult.value)
+      const subject = asyncResult.value;
+      const sender = getSender(mailboxItem)
+      const fetchInfo = [getRecipients(mailboxItem), getBody(mailboxItem)]
+      Promise.all(fetchInfo).then((info) => {
+        console.log(info)
 
-      fetch("https://httpbin.org/delay/5").then(
-        r => {
-          return r.json()
-        }
-      ).then(
-        r => {
-          // get the list of people
-          console.log(r, "In fetch delay")
-          showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult))
-          // asyncResult.asyncContext.completed({ allowEvent: false });
-        }
-      )
+        fetch("https://httpbin.org/delay/5").then(
+          r => {
+            return r.json()
+          }
+        ).then(
+          r => {
+            // subject, body, from, to
+            console.log(r, "In fetch delay")
+            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult))
+            // asyncResult.asyncContext.completed({ allowEvent: false });
+          }
+        )
+      })
+
+
+
+
 
       // setTimeout(() => {
       //     console.log("In Timeout")
