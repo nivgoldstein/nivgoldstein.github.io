@@ -100,8 +100,21 @@ function getBody(mailboxItem) {
 }
 
 function getSender(mailboxItem) {
-  debugger
-  return mailboxItem.sender
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.from.getAsync(callback);
+  })
+}
+
+function getCC(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.cc.getAsync(callback);
+  })
 }
 
 function getSubject(mailboxItem) {
@@ -121,13 +134,11 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
-      console.log("subject", asyncResult.value)
       const subject = asyncResult.value;
-      const sender = getSender(mailboxItem)
-      const fetchInfo = [getRecipients(mailboxItem), getBody(mailboxItem)]
+      const fetchInfo = [getRecipients(mailboxItem), getSender(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
       Promise.all(fetchInfo).then((info) => {
         console.log(info)
-
+        debugger
         fetch("https://httpbin.org/delay/5").then(
           r => {
             return r.json()
