@@ -9,52 +9,121 @@
   <title>CC checker</title>
 </head>
 <style>
+  * {
+    box-sizing: border-box;
+  }
+
+  hr {
+    width: 100%;
+    border: 1px solid #E6E9EE;
+    margin: 0;
+  }
+
+  .footer_img {
+    width: 100%;
+  }
+
+  .footer {
+    padding: 5px;
+  }
+
   .container {
+    font-size: 14px;
+    width: 420px;
+    background: #fff;
+    box-shadow: 0px 16px 48px rgba(0, 0, 0, 0.25);
+    border-radius: 16px;
     display: flex;
+    gap: 16px;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+
+  .h1 {
+    font-size: 32px;
+    color: #2F354A;
+  }
+
+  .buttons {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    padding: 0 40px;
   }
 
   .btn {
-    border-radius: 5px;
-    padding: 15px 25px;
-    font-size: 22px;
+    border-radius: 4px;
+    padding: 10.5px 16px;
+    font-size: 14px;
     text-decoration: none;
-    margin: 20px;
-    color: #fff;
-    position: relative;
-    display: inline-block;
     border-color: transparent;
+    background-color: transparent;
+    cursor: pointer;
   }
 
   .btn:active {
-    transform: translate(0px, 5px);
-    -webkit-transform: translate(0px, 5px);
-    box-shadow: 0px 1px 0px 0px;
+    transform: translate(0px, 2px);
+    -webkit-transform: translate(0px, 2px);
+  }
+
+  .btn:hover {
+    background-color: #a8a5a5;
   }
 
   .blue {
-    background-color: #55acee;
-    box-shadow: 0px 5px 0px 0px #3C93D5;
+    color: #fff;
+    background-color: #2E41EA;
   }
 
   .blue:hover {
     background-color: #6FC6FF;
   }
 
-  .red {
-    background-color: #e74c3c;
-    box-shadow: 0px 5px 0px 0px #CE3323;
+  .list {
+    list-style-type: none;
+    padding: 0;
+    margin-top: 6px;
   }
 
-  .red:hover {
-    background-color: #FF6656;
+  .list li {
+    margin-bottom: 10px;
+  }
+
+  .content {
+    line-height: 22px;
   }
 </style>
 
 <body>
   <div class="container">
-    <button class="btn blue" id="yesBtn">Approve</button>
-    <button class="btn red" id="cancleBtn">Cancel</button>
+    <div class="title">
+      <img src="https://res.cloudinary.com/dwai4phgu/image/upload/v1656573967/fill_alert_triangle_jezo1v.png" />
+      <span class="h1">Are You Sure?</span>
+    </div>
+    <div class="content">
+      Please be aware, this message contains <br>
+      <b>possible sensitive financial information:</b>
+      <ul class="list">
+        <li>shahar@gmail.com</li>
+        <li>yaniv@ducky.com</li>
+      </ul>
+    </div>
+    <div class="buttons">
+      <button id="editBtn" class="btn">Edit</button>
+      <button id="sendBtn" class="btn blue">Send</button>
+    </div>
+    <div class="footer">
+      <hr />
+      <img src="https://res.cloudinary.com/dwai4phgu/image/upload/v1656575639/big_footer_rtvqjx.png"
+        class="footer_img" />
+    </div>
   </div>
 
 
@@ -73,10 +142,10 @@
     function pressedNo() {
       sendMessage('no')
     }
-    const yesButton = document.getElementById("yesBtn")
-    yesButton.addEventListener('click', pressedYes)
-    const cancleButton = document.getElementById("cancleBtn")
-    cancleButton.addEventListener('click', pressedNo)
+    const sendButton = document.getElementById("sendBtn")
+    sendButton.addEventListener('click', pressedYes)
+    const editButton = document.getElementById("editBtn")
+    editButton.addEventListener('click', pressedNo)
 
     window.onbeforeunload(ev => {
       sendMessage('closed')
