@@ -95,7 +95,8 @@ function getBody(mailboxItem) {
     function callback(asyncResult) {
       res(asyncResult.value);
     }
-    mailboxItem.body.getAsync(callback);
+    mailboxItem.body.getAsync("text",
+      {}, callback);
   })
 }
 
