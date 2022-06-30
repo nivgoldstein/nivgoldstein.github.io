@@ -100,7 +100,8 @@ function getBody(mailboxItem) {
 }
 
 function getSender(mailboxItem) {
-  return mailboxItem.sender.emailAddress
+  debugger
+  return mailboxItem.sender
 }
 
 function getSubject(mailboxItem) {
