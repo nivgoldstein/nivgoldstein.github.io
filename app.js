@@ -6,6 +6,10 @@ function allowToSend(asyncResult) {
   }
 }
 
+function sendEmail(asyncResult) {
+  asyncResult.asyncContext.completed({ allowEvent: true });
+}
+
 function notAllowedToSend(asyncResult) {
   return () => {
     asyncResult.asyncContext.completed({ allowEvent: false });
@@ -155,16 +159,24 @@ function shouldChangeSubjectOnSend(event) {
           body,
           subject
         }
-        console.log(info)
-        fetch("https://httpbin.org/delay/5").then(
+
+        const timeout = setTimeout(() => {
+          sendEmail(asyncResult)
+        }, 4000)
+
+        fetch("https://httpbin.org/delay/3").then(
           r => {
+            clearTimeout(timeout)
             return r.json()
           }
         ).then(
           r => {
-            // subject, body, from, to
-            console.log(r, "In fetch delay")
-            showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
+            const x = 6;
+            if (x > 0) {
+              showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
+            } else {
+              sendEmail(asyncResult)
+            }
             // asyncResult.asyncContext.completed({ allowEvent: false });
           }
         )
