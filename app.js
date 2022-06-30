@@ -98,6 +98,7 @@ function shouldChangeSubjectOnSend(event) {
         }
       ).then(
         r => {
+          // get the list of people
           console.log(r, "In fetch delay")
           showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult))
           // asyncResult.asyncContext.completed({ allowEvent: false });
