@@ -147,12 +147,22 @@
       Office.context.ui.messageParent(JSON.stringify(parsedMessage))
     }
 
+    function close() {
+      Office.context.ui.closeContainer()
+
+      if (window.close) {
+        window.close()
+      }
+    }
+
     function pressedYes() {
       sendMessage('yes')
+      close()
     }
 
     function pressedNo() {
       sendMessage('no')
+      close()
     }
     const sendButton = document.getElementById("sendBtn")
     sendButton.addEventListener('click', pressedYes)
