@@ -73,6 +73,7 @@ function processMessage(arg, approveFn, cancelFn) {
   }
   console.log(messageFromDialog, dialog, arg)
   dialog.close();
+  Office.context.ui.closeContainer()
 }
 
 var mailboxItem;
