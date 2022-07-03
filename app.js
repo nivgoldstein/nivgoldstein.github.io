@@ -25,7 +25,7 @@ function showDialog(approveFn, cancelFn, recipients) {
   if (recipients) {
     setRecipients(recipients)
   }
-  Office.context.ui.displayDialogAsync(dialogUrl, { height: 40, width: 30, displayInIframe: true },
+  Office.context.ui.displayDialogAsync(dialogUrl, { height: 40, width: 30, promptBeforeOpen: false },
     function (asyncResult) {
       console.log('diplay dialog', asyncResult)
       dialog = asyncResult.value;
