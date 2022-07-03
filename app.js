@@ -25,7 +25,7 @@ function showDialog(approveFn, cancelFn, recipients) {
   if (recipients) {
     setRecipients(recipients)
   }
-  Office.context.ui.displayDialogAsync(dialogUrl, { height: 30, width: 20 },
+  Office.context.ui.displayDialogAsync(dialogUrl, { height: 40, width: 30, displayInIframe: true },
     function (asyncResult) {
       dialog = asyncResult.value;
       dialog.addEventHandler(Office.EventType.DialogMessageReceived, (arg) => processMessage(arg, approveFn, cancelFn));
