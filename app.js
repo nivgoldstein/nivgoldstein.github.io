@@ -60,7 +60,6 @@ function eventHandler(arg, cancelFn) {
 
 function processMessage(arg, approveFn, cancelFn) {
   var messageFromDialog = JSON.parse(arg.message);
-  console.log(messageFromDialog)
   if (messageFromDialog.result === 'yes') {
     // do something
     approveFn()
@@ -71,6 +70,7 @@ function processMessage(arg, approveFn, cancelFn) {
     // closed by something else
     cancelFn()
   }
+  console.log(messageFromDialog, dialog)
   dialog.close();
 }
 
@@ -160,18 +160,18 @@ function shouldChangeSubjectOnSend(event) {
           subject
         }
 
-        const timeout = setTimeout(() => {
-          sendEmail(asyncResult)
-        }, 4000)
+        // const timeout = setTimeout(() => {
+        //   sendEmail(asyncResult)
+        // }, 4000)
 
         fetch("https://httpbin.org/delay/3").then(
           r => {
-            clearTimeout(timeout)
+            // clearTimeout(timeout)
             return r.json()
           }
         ).then(
           r => {
-            mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Found vulnerabilities in recipients. Please remove them.' });
+            // mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Found vulnerabilities in recipients. Please remove them.' });
 
             const x = 6;
             if (x > 0) {
