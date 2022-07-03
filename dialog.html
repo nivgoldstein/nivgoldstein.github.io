@@ -137,8 +137,9 @@
 
 
   <script>
-
-    Office.initialize = function () { }
+    Office.initialize = function () {
+      console.log(Office.context.ui)
+    }
     function sendMessage(message) {
       const parsedMessage = {
         result: message
