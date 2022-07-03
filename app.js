@@ -71,7 +71,7 @@ function processMessage(arg, approveFn, cancelFn) {
     // closed by something else
     cancelFn()
   }
-  console.log(messageFromDialog, dialog)
+  console.log(messageFromDialog, dialog, arg)
   dialog.close();
 }
 
