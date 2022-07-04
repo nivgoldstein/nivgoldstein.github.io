@@ -1,4 +1,5 @@
 var dialog;
+const MAX_DIALOG_HEIGHT = 80;
 
 function allowToSend(asyncResult) {
   return () => {
@@ -25,7 +26,12 @@ function showDialog(approveFn, cancelFn, recipients) {
   if (recipients) {
     setRecipients(recipients)
   }
-  Office.context.ui.displayDialogAsync(dialogUrl, { height: 40, width: 30, promptBeforeOpen: false },
+  const dialogHeight = recipients.length ? 40 + recipients.length * 12 : 40;
+  Office.context.ui.displayDialogAsync(dialogUrl,
+    {
+      height: dialogHeight > MAX_DIALOG_HEIGHT ? MAX_DIALOG_HEIGHT : dialogHeight, width: 30,
+      promptBeforeOpen: false
+    },
     function (asyncResult) {
       console.log('diplay dialog', asyncResult)
       dialog = asyncResult.value;

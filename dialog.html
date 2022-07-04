@@ -176,6 +176,11 @@
         li.textContent = recipient
         list.appendChild(li)
       })
+
+      if (recipients.length > 5) {
+        list.style.overflow = 'auto'
+        list.style.maxHeight = '100px'
+      }
     }
 
     // window.onbeforeunload(ev => {
