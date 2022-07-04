@@ -26,7 +26,7 @@ function showDialog(approveFn, cancelFn, recipients) {
   if (recipients) {
     setRecipients(recipients)
   }
-  const dialogHeight = recipients.length > 5 ? 60 : 40;
+  const dialogHeight = recipients.length > 4 ? 65 : 50;
   console.log(dialogHeight, 'dialog height')
   Office.context.ui.displayDialogAsync(dialogUrl,
     {
