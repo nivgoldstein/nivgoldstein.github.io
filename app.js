@@ -29,7 +29,8 @@ function showDialog(approveFn, cancelFn, recipients) {
 
   Office.context.ui.displayDialogAsync(dialogUrl,
     {
-      height: DIALOG_HEIGHT, width: 30
+      height: DIALOG_HEIGHT, width: 30,
+      promptBeforeOpen: false
     },
     function (asyncResult) {
       console.log('diplay dialog', asyncResult)
