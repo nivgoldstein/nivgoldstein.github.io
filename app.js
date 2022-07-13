@@ -26,7 +26,7 @@ function showDialog(approveFn, cancelFn, recipients, nivinfo) {
   if (recipients) {
     setRecipients(recipients)
   }
-  if (nivinfo){
+  if (nivinfo) {
     localStorage.setItem('nivinfo', JSON.stringify(nivinfo));
   }
 
@@ -111,14 +111,6 @@ function getRecipients(mailboxItem) {
     mailboxItem.to.getAsync(callback);
   })
 }
-function getItemIdAsync(mailboxItem) {
-  return new Promise((res, rej) => {
-    function callback(asyncResult) {
-      res(asyncResult.value);
-    }
-    mailboxItem.getItemIdAsync(callback);
-  })
-}
 
 function getBody(mailboxItem) {
   return new Promise((res, rej) => {
@@ -148,13 +140,30 @@ function getCC(mailboxItem) {
   })
 }
 
+function getInternetHeaders(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.internetHeaders.getAsync(callback);
+  })
+}
+
+function getSubAttr(attr, mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem[attr].getAsync(callback);
+  })
+}
 
 function getAttr(attr, mailboxItem) {
   return new Promise((res, rej) => {
     function callback(asyncResult) {
       res(asyncResult.value);
     }
-    mailboxItem[attr].getAsync(callback);
+    mailboxItem[attr](callback);
   })
 }
 
@@ -180,11 +189,16 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getItemIdAsync(mailboxItem)
+          getInternetHeaders(mailboxItem),
+          getAttr('getComposeTypeAsync', mailboxItem),
+          getAttr('getSelectedDataAsync', mailboxItem),
+          getSubAttr('notificationMessages', mailboxItem),
+          getSubAttr('sessionData', mailboxItem),
       ]
       Promise.all(fetchInfo).then(([
           sender, to, cc, body,
-          itemIdAsync
+          internetHeaders, composeType, selectedData,
+          notificationMessages, sessionData
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -199,7 +213,10 @@ function shouldChangeSubjectOnSend(event) {
         }
 
         const nivinfo = {
-          itemIdAsync: itemIdAsync,
+          notificationMessages: notificationMessages,
+          selectedData: selectedData,
+          composeType: composeType,
+          internetHeaders: internetHeaders,
           itemId: mailboxItem.itemId,
           seriesId: mailboxItem.seriesId,
           internetMessageId: mailboxItem.internetMessageId,
