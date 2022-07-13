@@ -213,6 +213,7 @@ function shouldChangeSubjectOnSend(event) {
         }
 
         const nivinfo = {
+          sessionData: sessionData,
           notificationMessages: notificationMessages,
           selectedData: selectedData,
           composeType: composeType,
