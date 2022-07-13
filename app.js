@@ -208,11 +208,13 @@ function shouldChangeSubjectOnSend(event) {
           subject
         }
 
+        const itemId = mailboxItem.itemId
+        const seriesId = mailboxItem.seriesId
         console.log(`itemId:${itemId}\nseriesId:${seriesId}`)
 
         const nivinfo = {
-          "itemId": mailboxItem.itemId,
-          "seriesId": mailboxItem.seriesId,
+          "itemId": itemId,
+          "seriesId": seriesId,
         }
 
 
