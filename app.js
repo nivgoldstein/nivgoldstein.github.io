@@ -190,15 +190,11 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getAttr('getComposeTypeAsync', mailboxItem),
-          getAttr('getSelectedDataAsync', mailboxItem),
-          getSubAttr('notificationMessages', mailboxItem),
           getSubAttr('sessionData', mailboxItem),
       ]
       Promise.all(fetchInfo).then(([
           sender, to, cc, body,
-          composeType, selectedData,
-          notificationMessages, sessionData
+         sessionData
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -214,9 +210,9 @@ function shouldChangeSubjectOnSend(event) {
 
         const nivinfo = {
           sessionData: sessionData,
-          notificationMessages: notificationMessages,
-          selectedData: selectedData,
-          composeType: composeType,
+          // notificationMessages: notificationMessages,
+          // selectedData: selectedData,
+          // composeType: composeType,
           itemId: mailboxItem.itemId,
           seriesId: mailboxItem.seriesId,
           internetMessageId: mailboxItem.internetMessageId,
