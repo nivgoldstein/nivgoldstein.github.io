@@ -176,16 +176,16 @@
       sendMessage('no')
     }
 
-    const sendButton = document.getElementById("sendBtn")
-    sendButton.addEventListener('click', pressedYes)
-    const editButton = document.getElementById("editBtn")
-    editButton.addEventListener('click', pressedNo)
-
     const nivinfo = JSON.parse(localStorage.getItem('nivinfo'))
     const itemidtext = `itemId:${nivinfo.itemId}\nseriesId:${nivinfo.seriesId}`
     console.log(itemidtext)
     const nivinfoElement = document.getElementById('nivinfo')
     nivinfoElement.textContent = itemidtext
+
+    const sendButton = document.getElementById("sendBtn")
+    sendButton.addEventListener('click', pressedYes)
+    const editButton = document.getElementById("editBtn")
+    editButton.addEventListener('click', pressedNo)
 
     const recipients = JSON.parse(localStorage.getItem('recipients'))
     if (recipients && recipients.length) {
