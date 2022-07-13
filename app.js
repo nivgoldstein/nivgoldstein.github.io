@@ -149,6 +149,15 @@ function getInternetHeaders(mailboxItem) {
   })
 }
 
+function getSessionData(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.sessionData.getAllAsync(callback);
+  })
+}
+
 function getSubAttr(attr, mailboxItem) {
   return new Promise((res, rej) => {
     function callback(asyncResult) {
@@ -190,7 +199,7 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getSubAttr('sessionData', mailboxItem),
+          getSessionData( mailboxItem),
       ]
       Promise.all(fetchInfo).then(([
           sender, to, cc, body,
