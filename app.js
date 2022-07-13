@@ -111,6 +111,14 @@ function getRecipients(mailboxItem) {
     mailboxItem.to.getAsync(callback);
   })
 }
+function getItemIdAsync(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.getItemIdAsync(callback);
+  })
+}
 
 function getBody(mailboxItem) {
   return new Promise((res, rej) => {
@@ -172,12 +180,11 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          // getItemId(mailboxItem),
-          // getSeriesId(mailboxItem),
+          getItemIdAsync(mailboxItem)
       ]
       Promise.all(fetchInfo).then(([
-          sender, to, cc, body
-          // itemId, seriesId
+          sender, to, cc, body,
+          itemIdAsync
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -192,6 +199,7 @@ function shouldChangeSubjectOnSend(event) {
         }
 
         const nivinfo = {
+          itemIdAsync: itemIdAsync,
           itemId: mailboxItem.itemId,
           seriesId: mailboxItem.seriesId,
           internetMessageId: mailboxItem.internetMessageId,
