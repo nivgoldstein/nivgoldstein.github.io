@@ -140,23 +140,6 @@ function getCC(mailboxItem) {
   })
 }
 
-// function getItemId(mailboxItem) {
-//   return new Promise((res, rej) => {
-//     function callback(asyncResult) {
-//       res(asyncResult.value);
-//     }
-//     mailboxItem.itemId.getAsync(callback);
-//   })
-// }
-//
-// function getSeriesId(mailboxItem) {
-//   return new Promise((res, rej) => {
-//     function callback(asyncResult) {
-//       res(asyncResult.value);
-//     }
-//     mailboxItem.seriesId.getAsync(callback);
-//   })
-// }
 
 function getAttr(attr, mailboxItem) {
   return new Promise((res, rej) => {
