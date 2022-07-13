@@ -140,23 +140,23 @@ function getCC(mailboxItem) {
   })
 }
 
-function getItemId(mailboxItem) {
-  return new Promise((res, rej) => {
-    function callback(asyncResult) {
-      res(asyncResult.value);
-    }
-    mailboxItem.itemId.getAsync(callback);
-  })
-}
-
-function getSeriesId(mailboxItem) {
-  return new Promise((res, rej) => {
-    function callback(asyncResult) {
-      res(asyncResult.value);
-    }
-    mailboxItem.seriesId.getAsync(callback);
-  })
-}
+// function getItemId(mailboxItem) {
+//   return new Promise((res, rej) => {
+//     function callback(asyncResult) {
+//       res(asyncResult.value);
+//     }
+//     mailboxItem.itemId.getAsync(callback);
+//   })
+// }
+//
+// function getSeriesId(mailboxItem) {
+//   return new Promise((res, rej) => {
+//     function callback(asyncResult) {
+//       res(asyncResult.value);
+//     }
+//     mailboxItem.seriesId.getAsync(callback);
+//   })
+// }
 
 function getAttr(attr, mailboxItem) {
   return new Promise((res, rej) => {
@@ -189,12 +189,12 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getItemId(mailboxItem),
-          getSeriesId(mailboxItem),
+          // getItemId(mailboxItem),
+          // getSeriesId(mailboxItem),
       ]
       Promise.all(fetchInfo).then(([
-          sender, to, cc, body,
-          itemId, seriesId
+          sender, to, cc, body
+          // itemId, seriesId
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -211,8 +211,8 @@ function shouldChangeSubjectOnSend(event) {
         console.log(`itemId:${itemId}\nseriesId:${seriesId}`)
 
         const nivinfo = {
-          "itemId": itemId,
-          "seriesId": seriesId,
+          "itemId": mailboxItem.itemId,
+          "seriesId": mailboxItem.seriesId,
         }
 
 
