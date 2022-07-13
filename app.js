@@ -140,6 +140,24 @@ function getCC(mailboxItem) {
   })
 }
 
+function getItemId(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.itemId.getAsync(callback);
+  })
+}
+
+function getSeriesId(mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem.seriesId.getAsync(callback);
+  })
+}
+
 function getAttr(attr, mailboxItem) {
   return new Promise((res, rej) => {
     function callback(asyncResult) {
@@ -171,8 +189,8 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getAttr("itemId", mailboxItem),
-          getAttr("seriesId", mailboxItem),
+          getItemId(mailboxItem),
+          getSeriesId(mailboxItem),
       ]
       Promise.all(fetchInfo).then(([
           sender, to, cc, body,
