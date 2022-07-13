@@ -184,12 +184,12 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
+      console.log(mailboxItem)
       const fetchInfo = [
           getSender(mailboxItem),
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getInternetHeaders(mailboxItem),
           getAttr('getComposeTypeAsync', mailboxItem),
           getAttr('getSelectedDataAsync', mailboxItem),
           getSubAttr('notificationMessages', mailboxItem),
@@ -197,7 +197,7 @@ function shouldChangeSubjectOnSend(event) {
       ]
       Promise.all(fetchInfo).then(([
           sender, to, cc, body,
-          internetHeaders, composeType, selectedData,
+          composeType, selectedData,
           notificationMessages, sessionData
       ]) => {
         const from = sender.emailAddress
@@ -217,14 +217,12 @@ function shouldChangeSubjectOnSend(event) {
           notificationMessages: notificationMessages,
           selectedData: selectedData,
           composeType: composeType,
-          internetHeaders: internetHeaders,
           itemId: mailboxItem.itemId,
           seriesId: mailboxItem.seriesId,
           internetMessageId: mailboxItem.internetMessageId,
           conversationId: mailboxItem.conversationId,
           itemClass: mailboxItem.itemClass,
         }
-        console.log(mailboxItem)
         console.log(nivinfo)
         console.log(JSON.stringify(nivinfo))
 
