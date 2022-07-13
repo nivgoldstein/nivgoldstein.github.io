@@ -208,14 +208,15 @@ function shouldChangeSubjectOnSend(event) {
           subject
         }
 
-        const itemId = mailboxItem.itemId
-        const seriesId = mailboxItem.seriesId
-        console.log(`itemId:${itemId}\nseriesId:${seriesId}`)
-
         const nivinfo = {
-          "itemId": itemId,
-          "seriesId": seriesId,
+          "itemId": mailboxItem.itemId,
+          "seriesId": mailboxItem.seriesId,
+          "internetMessageId": mailboxItem.internetMessageId,
+          "conversationId": mailboxItem.conversationId,
+          "itemClass": mailboxItem.itemClass,
         }
+
+        console.log(nivinfo)
 
 
         fetch("https://httpbin.org/delay/0").then(

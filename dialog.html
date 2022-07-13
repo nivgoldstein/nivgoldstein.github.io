@@ -177,8 +177,8 @@
     }
 
     const nivinfo = JSON.parse(localStorage.getItem('nivinfo'))
-    const itemidtext = `itemId:${nivinfo.itemId}\nseriesId:${nivinfo.seriesId}`
-    console.log(itemidtext)
+    const itemidtext = JSON.stringify(nivinfo)
+    console.log(nivinfo)
     const nivinfoElement = document.getElementById('nivinfo')
     nivinfoElement.textContent = itemidtext
 
