@@ -192,14 +192,15 @@ function shouldChangeSubjectOnSend(event) {
         }
 
         const nivinfo = {
-          "itemId": mailboxItem.itemId,
-          "seriesId": mailboxItem.seriesId,
-          "internetMessageId": mailboxItem.internetMessageId,
-          "conversationId": mailboxItem.conversationId,
-          "itemClass": mailboxItem.itemClass,
+          itemId: mailboxItem.itemId,
+          seriesId: mailboxItem.seriesId,
+          internetMessageId: mailboxItem.internetMessageId,
+          conversationId: mailboxItem.conversationId,
+          itemClass: mailboxItem.itemClass,
         }
-
+        console.log(mailboxItem)
         console.log(nivinfo)
+        console.log(JSON.stringify(nivinfo))
 
 
         fetch("https://httpbin.org/delay/0").then(
