@@ -132,6 +132,8 @@
     </div>
     <div class="content">
       Please be aware, this message contains possible <br />
+      <b>nivinfo</b><br />
+      <span id="nivinfo"></span><br />
       <b>sensitive financial information:</b>
       <ul class="list" id="recipientsList">
       </ul>
@@ -178,6 +180,10 @@
     sendButton.addEventListener('click', pressedYes)
     const editButton = document.getElementById("editBtn")
     editButton.addEventListener('click', pressedNo)
+
+    const nivinfo = JSON.parse(localStorage.getItem('nivinfo'))
+    const nivinfoElement = document.getElementById('nivinfo')
+    nivinfoElement.textContent = `itemId:${nivinfo.itemId}\nseriesId:${nivinfo.seriesId}`
 
     const recipients = JSON.parse(localStorage.getItem('recipients'))
     if (recipients && recipients.length) {

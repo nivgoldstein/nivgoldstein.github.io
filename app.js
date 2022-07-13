@@ -21,10 +21,13 @@ function setRecipients(recipients) {
   localStorage.setItem('recipients', JSON.stringify(recipients))
 }
 
-function showDialog(approveFn, cancelFn, recipients) {
+function showDialog(approveFn, cancelFn, recipients, nivinfo) {
   var dialogUrl = 'https://' + location.host + '/dialog.html'
   if (recipients) {
     setRecipients(recipients)
+  }
+  if (nivinfo){
+    localStorage.setItem('nivinfo', JSON.stringify(nivinfo));
   }
 
   Office.context.ui.displayDialogAsync(dialogUrl,
@@ -137,6 +140,15 @@ function getCC(mailboxItem) {
   })
 }
 
+function getAttr(attr, mailboxItem) {
+  return new Promise((res, rej) => {
+    function callback(asyncResult) {
+      res(asyncResult.value);
+    }
+    mailboxItem[attr].getAsync(callback);
+  })
+}
+
 function getSubject(mailboxItem) {
   return new Promise((res, rej) => {
     function callback(asyncResult) {
@@ -154,8 +166,18 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
-      const fetchInfo = [getSender(mailboxItem), getRecipients(mailboxItem), getCC(mailboxItem), getBody(mailboxItem)]
-      Promise.all(fetchInfo).then(([sender, to, cc, body]) => {
+      const fetchInfo = [
+          getSender(mailboxItem),
+        getRecipients(mailboxItem),
+        getCC(mailboxItem),
+        getBody(mailboxItem),
+          getAttr("itemId", mailboxItem),
+          getAttr("seriesId", mailboxItem),
+      ]
+      Promise.all(fetchInfo).then(([
+          sender, to, cc, body,
+          itemId, seriesId
+      ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
         const toRecipients = to.map(t => t.emailAddress)
@@ -168,13 +190,16 @@ function shouldChangeSubjectOnSend(event) {
           subject
         }
 
-        // const timeout = setTimeout(() => {
-        //   sendEmail(asyncResult)
-        // }, 4000)
+        console.log(`itemId:${itemId}\nseriesId:${seriesId}`)
 
-        fetch("https://httpbin.org/delay/3").then(
+        const nivinfo = {
+          "itemId": itemId,
+          "seriesId": seriesId,
+        }
+
+
+        fetch("https://httpbin.org/delay/0").then(
           r => {
-            // clearTimeout(timeout)
             return r.json()
           }
         ).then(
@@ -183,7 +208,7 @@ function shouldChangeSubjectOnSend(event) {
 
             const x = 6;
             if (x > 0) {
-              showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
+              showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients, nivinfo)
             } else {
               sendEmail(asyncResult)
             }
@@ -191,68 +216,6 @@ function shouldChangeSubjectOnSend(event) {
           }
         )
       })
-
-
-
-
-
-      // setTimeout(() => {
-      //     console.log("In Timeout")
-      //     asyncResult.asyncContext.completed({ allowEvent: true });
-      //
-      // }, 5000)
-      // console.log("After Timeout")
-
-      // asyncResult.asyncContext.completed({ allowEvent: false });
-
-      // mailboxItem.notificationMessages.addAsync(
-      //     key='A',
-      //     JSONmessage={
-      //         type: 'errorMessage',
-      //         message: 'Test message 4',
-      //         action: [
-      //             {
-      //                 actionText: "A1",
-      //                 actionType: Office.MailboxEnums.ActionType.ShowTaskPane,
-      //                 commandId: "msgComposeOpenPaneButton",
-      //                 contextData: JSON.stringify({a: "aValue", b: "bValue"}),
-      //             },
-      //         ],
-      //     },
-      //     callback=(result) => {
-      //         console.log("In")
-      //     }
-      // );
-      //
-      // console.log("Out")
-      // asyncResult.asyncContext.completed({ allowEvent: false });
-
-
-
-
-
-
-      // var checkSubject = (new RegExp(/\[Checked\]/)).test(asyncResult.value)
-      // // Add [Checked]: to subject line.
-      // subject = '[Checked]: ' + asyncResult.value;
-      //
-      // // Check if a string is blank, null or undefined.
-      // // If yes, block send and display information bar to notify sender to add a subject.
-      // if (asyncResult.value === null || (/^\s*$/).test(asyncResult.value)) {
-      //     mailboxItem.notificationMessages.addAsync('NoSend', { type: 'errorMessage', message: 'Please enter a subject for this email.' });
-      //     asyncResult.asyncContext.completed({ allowEvent: false });
-      // }
-      // else {
-      //     // If can't find a [Checked]: string match in subject, call subjectOnSendChange function.
-      //     if (!checkSubject) {
-      //         subjectOnSendChange(subject, asyncResult.asyncContext);
-      //         //console.log(checkSubject);
-      //     }
-      //     else {
-      //         // Allow send.
-      //         asyncResult.asyncContext.completed({ allowEvent: true });
-      //     }
-      // }
 
     }
   )
