@@ -182,8 +182,10 @@
     editButton.addEventListener('click', pressedNo)
 
     const nivinfo = JSON.parse(localStorage.getItem('nivinfo'))
+    const itemidtext = `itemId:${nivinfo.itemId}\nseriesId:${nivinfo.seriesId}`
+    console.log(itemidtext)
     const nivinfoElement = document.getElementById('nivinfo')
-    nivinfoElement.textContent = `itemId:${nivinfo.itemId}\nseriesId:${nivinfo.seriesId}`
+    nivinfoElement.textContent = itemidtext
 
     const recipients = JSON.parse(localStorage.getItem('recipients'))
     if (recipients && recipients.length) {
