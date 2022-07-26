@@ -21,14 +21,14 @@ function setRecipients(recipients) {
   localStorage.setItem('recipients', JSON.stringify(recipients))
 }
 
-function showDialog(approveFn, cancelFn, recipients, nivinfo) {
+function showDialog(approveFn, cancelFn, recipients) {
   var dialogUrl = 'https://' + location.host + '/dialog.html'
   if (recipients) {
     setRecipients(recipients)
   }
-  if (nivinfo) {
-    localStorage.setItem('nivinfo', JSON.stringify(nivinfo));
-  }
+  // if (nivinfo) {
+  //   localStorage.setItem('nivinfo', JSON.stringify(nivinfo));
+  // }
 
   Office.context.ui.displayDialogAsync(dialogUrl,
     {
@@ -254,7 +254,7 @@ function shouldChangeSubjectOnSend(event) {
 
             const x = 6;
             if (x > 0) {
-              showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients, nivinfo)
+              showDialog(allowToSend(asyncResult), notAllowedToSend(asyncResult), toRecipients)
             } else {
               sendEmail(asyncResult)
             }
