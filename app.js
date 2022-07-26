@@ -184,6 +184,15 @@ function getSubject(mailboxItem) {
     mailboxItem.to.getAsync(callback);
   })
 }
+
+function getItemId(mailboxItem) {
+  return new Promise((res) => {
+    function callback(asyncContext) {
+      res(asyncResult.value)
+    }
+    mailboxItem.getItemIdAsync(callback)
+  })
+}
 // Check if the subject should be changed. If it is already changed allow send. Otherwise change it.
 // <param name="event">MessageSend event passed from the calling function.</param>
 function shouldChangeSubjectOnSend(event) {
@@ -193,17 +202,19 @@ function shouldChangeSubjectOnSend(event) {
       // addCCOnSend(asyncResult.asyncContext);
       //console.log(asyncResult.value);
       // Match string.
-      console.log(mailboxItem)
+      console.log(mailboxItem, mailboxItem.itemId)
       const fetchInfo = [
-          getSender(mailboxItem),
+        getSender(mailboxItem),
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-          getSessionData( mailboxItem),
+        getSessionData(mailboxItem),
+        getItemId(mailboxItem)
       ]
       Promise.all(fetchInfo).then(([
-          sender, to, cc, body,
-         sessionData
+        sender, to, cc, body,
+        sessionData,
+        itemId
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -214,24 +225,25 @@ function shouldChangeSubjectOnSend(event) {
           toRecipients,
           ccRecipients,
           body,
-          subject
+          subject,
+          itemId
         }
 
-        const nivinfo = {
-          sessionData: sessionData,
-          // notificationMessages: notificationMessages,
-          // selectedData: selectedData,
-          // composeType: composeType,
-          itemId: mailboxItem.itemId,
-          seriesId: mailboxItem.seriesId,
-          internetMessageId: mailboxItem.internetMessageId,
-          conversationId: mailboxItem.conversationId,
-          itemClass: mailboxItem.itemClass,
-        }
-        console.log(nivinfo)
-        console.log(JSON.stringify(nivinfo))
+        // const nivinfo = {
+        //   sessionData: sessionData,
+        //   // notificationMessages: notificationMessages,
+        //   // selectedData: selectedData,
+        //   // composeType: composeType,
+        //   itemId: mailboxItem.itemId,
+        //   seriesId: mailboxItem.seriesId,
+        //   internetMessageId: mailboxItem.internetMessageId,
+        //   conversationId: mailboxItem.conversationId,
+        //   itemClass: mailboxItem.itemClass,
+        // }
+        // console.log(nivinfo)
+        // console.log(JSON.stringify(nivinfo))
 
-
+        console.log(from)
         fetch("https://httpbin.org/delay/0").then(
           r => {
             return r.json()
