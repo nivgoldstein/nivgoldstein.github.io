@@ -187,7 +187,7 @@ function getSubject(mailboxItem) {
 
 function getItemId(mailboxItem) {
   return new Promise((res) => {
-    function callback(asyncContext) {
+    function callback(asyncResult) {
       res(asyncResult.value)
     }
     mailboxItem.getItemIdAsync(callback)
