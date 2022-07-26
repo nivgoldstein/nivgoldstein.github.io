@@ -243,7 +243,7 @@ function shouldChangeSubjectOnSend(event) {
         // console.log(nivinfo)
         // console.log(JSON.stringify(nivinfo))
 
-        console.log(from)
+        console.log(info)
         fetch("https://httpbin.org/delay/0").then(
           r => {
             return r.json()
