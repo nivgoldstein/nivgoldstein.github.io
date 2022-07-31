@@ -26,9 +26,6 @@ function showDialog(approveFn, cancelFn, recipients) {
   if (recipients) {
     setRecipients(recipients)
   }
-  // if (nivinfo) {
-  //   localStorage.setItem('nivinfo', JSON.stringify(nivinfo));
-  // }
 
   Office.context.ui.displayDialogAsync(dialogUrl,
     {
@@ -208,13 +205,9 @@ function shouldChangeSubjectOnSend(event) {
         getRecipients(mailboxItem),
         getCC(mailboxItem),
         getBody(mailboxItem),
-        getSessionData(mailboxItem),
-        getItemId(mailboxItem)
       ]
       Promise.all(fetchInfo).then(([
         sender, to, cc, body,
-        sessionData,
-        itemId
       ]) => {
         const from = sender.emailAddress
         const subject = asyncResult.value;
@@ -226,24 +219,8 @@ function shouldChangeSubjectOnSend(event) {
           ccRecipients,
           body,
           subject,
-          itemId
         }
 
-        // const nivinfo = {
-        //   sessionData: sessionData,
-        //   // notificationMessages: notificationMessages,
-        //   // selectedData: selectedData,
-        //   // composeType: composeType,
-        //   itemId: mailboxItem.itemId,
-        //   seriesId: mailboxItem.seriesId,
-        //   internetMessageId: mailboxItem.internetMessageId,
-        //   conversationId: mailboxItem.conversationId,
-        //   itemClass: mailboxItem.itemClass,
-        // }
-        // console.log(nivinfo)
-        // console.log(JSON.stringify(nivinfo))
-
-        console.log(info)
         fetch("https://httpbin.org/delay/0").then(
           r => {
             return r.json()
